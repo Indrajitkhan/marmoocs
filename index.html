@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MAR Point Submission Form</title>
+
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      background:#f4f4f4;
+      margin:0;
+      padding:20px;
+    }
+
+    .container{
+      max-width:900px;
+      margin:auto;
+      background:white;
+      padding:30px;
+      border-radius:10px;
+      box-shadow:0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1{
+      text-align:center;
+      color:#333;
+    }
+
+    .section{
+      margin-top:25px;
+    }
+
+    label{
+      display:block;
+      margin-top:10px;
+      font-weight:bold;
+    }
+
+    input, select{
+      width:100%;
+      padding:10px;
+      margin-top:5px;
+      border:1px solid #ccc;
+      border-radius:5px;
+    }
+
+    .activity{
+      margin-top:10px;
+      padding:10px;
+      border:1px solid #ddd;
+      border-radius:5px;
+      background:#fafafa;
+    }
+
+    button{
+      margin-top:20px;
+      width:100%;
+      padding:12px;
+      background:#007bff;
+      color:white;
+      border:none;
+      border-radius:5px;
+      font-size:16px;
+      cursor:pointer;
+    }
+
+    button:hover{
+      background:#0056b3;
+    }
+
+    .total{
+      margin-top:20px;
+      font-size:22px;
+      font-weight:bold;
+      text-align:center;
+      color:green;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <h1>MAR Point Submission Form</h1>
+
+  <!-- Student Details -->
+  <div class="section">
+    <h2>Student Details</h2>
+
+    <label>Name</label>
+    <input type="text" id="name">
+
+    <label>Roll Number</label>
+    <input type="text" id="roll">
+
+    <label>Department</label>
+    <input type="text" id="dept">
+
+    <label>Semester</label>
+    <input type="text" id="sem">
+  </div>
+
+  <!-- Activities -->
+  <div class="section">
+    <h2>Select Activities</h2>
+
+    <div class="activity">
+      <input type="checkbox" class="points" value="20">
+      MOOCs 12 Weeks / 40 Hours — 20 Points
+    </div>
+
+    <div class="activity">
+      <input type="checkbox" class="points" value="15">
+      MOOCs 8 Weeks / 30 Hours — 15 Points
+    </div>
+
+    <div class="activity">
+      <input type="checkbox" class="points" value="5">
+      Tech Fest Organizer — 5 Points
+    </div>
+
+    <div class="activity">
+      <input type="checkbox" class="points" value="3">
+      Tech Fest Participant — 3 Points
+    </div>
+
+    <div class="activity">
+      <input type="checkbox" class="points" value="20">
+      Relief Work Team — 20 Points
+    </div>
+
+    <div class="activity">
+      <input type="checkbox" class="points" value="10">
+      Debate / Workshop / Quiz — 10 Points
+    </div>
+
+    <div class="activity">
+      <input type="checkbox" class="points" value="8">
+      Blood Donation — 8 Points
+    </div>
+
+    <div class="activity">
+      <input type="checkbox" class="points" value="20">
+      Innovative Project — 20 Points
+    </div>
+
+  </div>
+
+  <!-- Google Drive Upload -->
+  <div class="section">
+    <h2>Upload Certificate / Proof</h2>
+
+    <label>Select File</label>
+    <input type="file" id="fileUpload">
+  </div>
+
+  <!-- Total -->
+  <div class="total">
+    Total MAR Points: <span id="total">0</span>
+  </div>
+
+  <button onclick="submitForm()">Submit Form</button>
+
+</div>
+
+<script>
+
+  const checkboxes = document.querySelectorAll('.points');
+  const totalDisplay = document.getElementById('total');
+
+  checkboxes.forEach(box => {
+    box.addEventListener('change', calculateTotal);
+  });
+
+  function calculateTotal() {
+
+    let total = 0;
+
+    checkboxes.forEach(box => {
+      if(box.checked){
+        total += parseInt(box.value);
+      }
+    });
+
+    totalDisplay.innerText = total;
+  }
+
+  async function submitForm(){
+
+    const name = document.getElementById('name').value;
+    const roll = document.getElementById('roll').value;
+    const dept = document.getElementById('dept').value;
+    const sem = document.getElementById('sem').value;
+
+    const fileInput = document.getElementById('fileUpload');
+    const file = fileInput.files[0];
+
+    alert(
+      "Form Submitted Successfully\n\n" +
+      "Name: " + name +
+      "\nTotal MAR Points: " + totalDisplay.innerText
+    );
+
+    /*
+      GOOGLE DRIVE UPLOAD PART
+      ------------------------
+      You need backend for actual upload.
+
+      Recommended:
+      1. Google Apps Script
+      2. Firebase Storage
+      3. Node.js backend
+
+      Frontend alone CANNOT upload securely to Google Drive.
+    */
+  }
+
+</script>
+
+</body>
+</html>
